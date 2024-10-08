@@ -45,9 +45,14 @@ def main():
         if 0 <= article_id < len(search_results):
             selected_title, selected_description, _, _ = search_results[article_id]
 
-            # Step 10: Convert the selected lore entry to audio using Bark
+            # Step 10: Ask user to choose between large or small models
+            model_type = input("Enter model type ('large' for high quality or 'small' for faster inference): ").strip().lower()
+            if model_type not in ["large", "small"]:
+                model_type = "large"  # Default to large model if input is invalid
+
+            # Step 11: Convert the selected lore entry to audio using Bark
             output_file = selected_title.replace(" ", "_").lower()
-            convert_to_audio_bark(selected_description, output_file)
+            convert_to_audio_bark(selected_description, output_file, model_type)
         else:
             print("Invalid ID.")
 
